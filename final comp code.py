@@ -55,7 +55,6 @@ class GameUI:
     def exit_game(self):
         self.root.destroy()
 
- 
     def show_start_menu(self):
         self.clear_screen()
 
@@ -117,7 +116,7 @@ class GameUI:
             bg="#ff6b6b",
             fg="white",
             width=18,
-            command=self.exit_game   
+            command=self.exit_game
         ).pack(pady=5)
 
     def start_game(self):
@@ -203,7 +202,6 @@ class GameUI:
             command=self.toggle_weights
         ).grid(row=2, column=0, columnspan=2, pady=6)
 
-   
     def create_buttons(self):
         for i in range(self.game.n):
             btn = tk.Button(
@@ -215,7 +213,6 @@ class GameUI:
                 fg="#1d3557",
                 command=lambda i=i: self.check_coin(i)
             )
-
             btn.grid(row=i // 4, column=i % 4, padx=6, pady=6)
             self.buttons.append(btn)
 
@@ -266,9 +263,30 @@ class GameUI:
         for b in self.buttons:
             b.config(state="disabled")
 
+    # ✅ FIXED ONLY THIS PART
     def show_solution(self):
         self.game.steps = 0
-        index = self.game.binary_search_fake(0, self.game.n - 1)
+
+        def solve(low, high):
+            if low == high:
+                return low
+
+            mid = (low + high) // 2
+
+            expected = (mid - low + 1) * self.game.g
+            actual = self.game.weigh(low, mid)
+
+            self.update_status()
+            self.root.update_idletasks()
+
+            if actual == expected:
+                return solve(mid + 1, high)
+            else:
+                return solve(low, mid)
+
+        index = solve(0, self.game.n - 1)
+
+        self.update_status()
 
         self.result.config(
             text=f"🔎 Fake Coin: {index} | Type: {self.game.fake_type}",
@@ -291,6 +309,7 @@ class GameUI:
     def clear_screen(self):
         for w in self.root.winfo_children():
             w.destroy()
+
 
 root = tk.Tk()
 app = GameUI(root)
