@@ -263,7 +263,6 @@ class GameUI:
         for b in self.buttons:
             b.config(state="disabled")
 
-    # ✅ FIXED ONLY THIS PART
     def show_solution(self):
         self.game.steps = 0
 
