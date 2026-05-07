@@ -3,8 +3,6 @@ from tkinter import messagebox
 import random
 import math
 
-
-# ── Colours ──────────────────────────────────────────────────────────────────
 BG_DARK      = "#0f0f1a"
 BG_CARD      = "#1a1a2e"
 BG_PANEL     = "#16213e"
@@ -66,7 +64,6 @@ class GameUI:
 
         self.show_start_menu()
 
-    # ── helpers ──────────────────────────────────────────────────────────────
     def clear_screen(self):
         for w in self.root.winfo_children():
             w.destroy()
@@ -81,9 +78,6 @@ class GameUI:
             relief="flat", bd=0, cursor="hand2"
         )
 
-    # ════════════════════════════════════════════════════════════════════════
-    # START MENU
-    # ════════════════════════════════════════════════════════════════════════
     def show_start_menu(self):
         self.clear_screen()
         self.root.geometry("980x700")
@@ -204,9 +198,7 @@ class GameUI:
                   pady=10, padx=28
                   ).pack(side="left", padx=12)
 
-    # ════════════════════════════════════════════════════════════════════════
-    # GAME SCREEN
-    # ════════════════════════════════════════════════════════════════════════
+
     def start_game(self):
         self.clear_screen()
         self.root.geometry("1050x720")
@@ -373,7 +365,6 @@ class GameUI:
             c.create_text((x1 + x2) / 2, 20, text=str(i),
                           fill=fc, font=("Consolas", 8))
 
-    # ── status helpers ────────────────────────────────────────────────────────
     def _update_efficiency(self):
         steps = self.game.steps
         n     = self.game.n
@@ -410,7 +401,7 @@ class GameUI:
         self._update_efficiency()
         self._refresh_log()
 
-    # ── game logic ────────────────────────────────────────────────────────────
+
     def check_coin(self, index):
         if self.game_over:
             return
