@@ -83,7 +83,7 @@ class GameUI:
         self.root.geometry("980x700")
         self.root.minsize(820, 600)
 
-        # Header
+    
         hdr = tk.Frame(self.root, bg=ACCENT_BLUE)
         hdr.pack(fill="x")
         tk.Label(hdr, text="FAKE COIN DETECTOR",
@@ -92,14 +92,12 @@ class GameUI:
         tk.Label(hdr, text="Design & Analysis of Algorithms  •  Puzzle #53",
                  font=("Segoe UI", 10), fg=TEXT_DIM, bg=ACCENT_BLUE).pack(pady=(0, 14))
 
-        # Two-column body using grid
         body = tk.Frame(self.root, bg=BG_DARK)
         body.pack(fill="both", expand=True, padx=30, pady=16)
         body.columnconfigure(0, weight=1)
         body.columnconfigure(1, weight=1)
         body.rowconfigure(0, weight=1)
 
-        # LEFT card
         left = tk.Frame(body, bg=BG_CARD, padx=20, pady=16)
         left.grid(row=0, column=0, sticky="nsew", padx=(0, 8))
 
@@ -125,7 +123,7 @@ class GameUI:
                      fg=TEXT_MAIN, bg=BG_CARD,
                      wraplength=300, justify="left").pack(side="left", padx=4)
 
-        # RIGHT card — complexity table using grid (no place(), no clipping)
+        
         right = tk.Frame(body, bg=BG_CARD, padx=20, pady=16)
         right.grid(row=0, column=1, sticky="nsew", padx=(8, 0))
 
@@ -134,7 +132,6 @@ class GameUI:
                  fg=ACCENT_CYAN, bg=BG_CARD).pack(anchor="w")
         tk.Frame(right, bg=ACCENT_BLUE, height=2).pack(fill="x", pady=(4, 14))
 
-        # Table frame — grid layout, guaranteed no clipping
         tbl = tk.Frame(right, bg=BG_CARD)
         tbl.pack(fill="x")
 
@@ -142,7 +139,6 @@ class GameUI:
         hdr_colors = [TEXT_DIM,         ACCENT_GOLD, ACCENT_GREEN, ACCENT_CYAN]
         col_widths = [15,               10,          10,          10]
 
-        # Header row
         for c, (h, col, w) in enumerate(zip(headers, hdr_colors, col_widths)):
             tk.Label(tbl, text=h,
                      font=("Consolas", 10, "bold"),
@@ -150,12 +146,10 @@ class GameUI:
                      width=w, anchor="w"
                      ).grid(row=0, column=c, padx=6, pady=(0, 4), sticky="w")
 
-        # Thin divider
         tk.Frame(tbl, bg=ACCENT_BLUE, height=1
                  ).grid(row=1, column=0, columnspan=4, sticky="ew",
                         padx=4, pady=(0, 6))
 
-        # Data rows
         rows_data = [
             ("Brute Force",   "O(n)",     "Ω(1)",  "Θ(n)"),
             ("Binary Search", "O(log n)", "Ω(1)",  "Θ(log n)"),
@@ -184,7 +178,7 @@ class GameUI:
                  font=("Consolas", 10), fg=ACCENT_GREEN,
                  bg=BG_CARD, justify="left").pack(anchor="w", pady=(10, 0))
 
-        # Bottom buttons
+    
         btns = tk.Frame(self.root, bg=BG_DARK)
         btns.pack(pady=18)
 
@@ -210,7 +204,7 @@ class GameUI:
         self._build_game_ui()
 
     def _build_game_ui(self):
-        # Top bar
+      
         top = tk.Frame(self.root, bg=ACCENT_BLUE, height=52)
         top.pack(fill="x")
         top.pack_propagate(False)
@@ -224,7 +218,6 @@ class GameUI:
                  font=("Consolas", 11, "bold"),
                  fg=TEXT_MAIN, bg=ACCENT_BLUE).pack(side="right", padx=20)
 
-        # Main area
         main = tk.Frame(self.root, bg=BG_DARK)
         main.pack(fill="both", expand=True, padx=16, pady=10)
         main.columnconfigure(0, weight=1)
@@ -238,14 +231,13 @@ class GameUI:
         right_col.grid(row=0, column=1, sticky="nsew")
         right_col.grid_propagate(False)
 
-        # Result label
         self.result_var = tk.StringVar(value="Click a coin to test it!")
         tk.Label(left_col, textvariable=self.result_var,
                  font=("Segoe UI", 12, "bold"),
                  fg=ACCENT_GOLD, bg=BG_DARK,
                  wraplength=580, justify="center").pack(pady=(4, 10))
 
-        # Coin grid
+  
         coin_outer = tk.Frame(left_col, bg=BG_DARK)
         coin_outer.pack()
         self.buttons = []
@@ -262,7 +254,6 @@ class GameUI:
             btn.grid(row=i // 4, column=i % 4, padx=7, pady=7)
             self.buttons.append(btn)
 
-        # Search visualiser bar
         viz_card = tk.Frame(left_col, bg=BG_CARD, padx=14, pady=10)
         viz_card.pack(fill="x", pady=(16, 0))
         tk.Label(viz_card, text="Binary Search Active Window",
@@ -278,7 +269,7 @@ class GameUI:
         self._build_right_panel(right_col)
 
     def _build_right_panel(self, parent):
-        # Controls
+  
         ctrl = tk.Frame(parent, bg=BG_CARD, padx=14, pady=12)
         ctrl.pack(fill="x")
         tk.Label(ctrl, text="CONTROLS",
@@ -300,7 +291,6 @@ class GameUI:
                       width=24, pady=7
                       ).pack(fill="x", pady=3)
 
-        # Efficiency panel
         eff = tk.Frame(parent, bg=BG_CARD, padx=14, pady=12)
         eff.pack(fill="both", expand=True, pady=(10, 0))
         tk.Label(eff, text="EFFICIENCY PANEL",
@@ -344,7 +334,7 @@ class GameUI:
         self.log_text.pack(fill="both", expand=True, padx=4, pady=4)
         self._refresh_log()
 
-    # ── canvas visualiser ─────────────────────────────────────────────────────
+
     def _draw_viz(self, low, high, mid):
         c = self.viz_canvas
         c.update_idletasks()
